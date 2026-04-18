@@ -1,164 +1,108 @@
-logs/
-wandb/
-models/
-features/
-results/
-src/logs/
-# Byte-compiled / optimized / DLL files
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
 .Python
+
+# ── Distribution / packaging ──────────────────────────────────────────────────
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+# ── Virtual environments ──────────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+ENV/
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
+# ── Testing / coverage ────────────────────────────────────────────────────────
 htmlcov/
 .tox/
-.nox/
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
 .hypothesis/
 .pytest_cache/
 
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-assets/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
+# ── Jupyter ───────────────────────────────────────────────────────────────────
 .ipynb_checkpoints
+*.ipynb
 
-# IPython
-profile_default/
-ipython_config.py
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# pyenv
-.python-version
+# ── OS artefacts ──────────────────────────────────────────────────────────────
+**/.DS_Store
+**/._*
+**/*DS_Store*
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
+# ── Model checkpoints ─────────────────────────────────────────────────────────
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+models/
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
+# ── Experiment tracking ───────────────────────────────────────────────────────
+logs/
+wandb/
+results/
+features/
+src/logs/
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
+# ── Large local data (datasets & archives) ────────────────────────────────────
+data/archives/**
+!data/archives/.gitkeep
 
-# SageMath parsed files
-*.sage.py
+data/datasets/**
+!data/datasets/
+!data/datasets/esc50/
+!data/datasets/esc50/.gitkeep
+!data/datasets/fsdd/
+!data/datasets/fsdd/.gitkeep
+!data/datasets/gtzan/
+!data/datasets/gtzan/.gitkeep
+!data/datasets/urbansound8k/
+!data/datasets/urbansound8k/.gitkeep
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+# ── Evaluation outputs (generated, not committed) ─────────────────────────────
+outputs/**
+!outputs/
+!outputs/embeddings/
+!outputs/embeddings/.gitkeep
+!outputs/figures/
+!outputs/figures/.gitkeep
+!outputs/metrics/
+!outputs/metrics/.gitkeep
+!outputs/tables/
+!outputs/tables/.gitkeep
 
-# Spyder project settings
-.spyderproject
-.spyproject
+# ── Legacy one-off outputs ────────────────────────────────────────────────────
+audio_embed.npy
+text_embed.npy
+labels.npy
+fig*.png
 
-# Rope project settings
-.ropeproject
+# ── Env snapshots (temporary, not needed in repo) ─────────────────────────────
+env_export.yml
+pip_freeze.txt
 
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+# ── Misc ──────────────────────────────────────────────────────────────────────
+src/sbatch/
+src/misc/
+src/debug/
+core.*
 sync.sh
 gpu1sync.sh
-.idea
-*.pdf
-**/._*
-**/*DS_*
-**.jsonl
-src/sbatch
-src/misc
-.vscode
-src/debug
-core.*
-
-# Allow
-!src/evaluation/misc/results_dbs/*
-src/test.py
-src/dev.ipynb
-src/sizes.json
-*.pt
-dev.ipynb
-src/json_files/*
-.vs/*
 run.sh
-Untitled.ipynb
-dev.ipynb
-src/dev.py
-ESC.csv
-.gitignore
-UrbanSound8K.csv
