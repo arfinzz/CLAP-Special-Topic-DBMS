@@ -135,29 +135,53 @@ problem in a shared embedding space.
 
 CLAP learns two encoders jointly:
 \begin{itemize}[leftmargin=1.25em]
-  \item an audio encoder $f_a(x)$;
-  \item a text encoder $f_t(y)$,
+  \item an audio encoder $f_a(\cdot)$;
+  \item a text encoder $f_t(\cdot)$,
 \end{itemize}
-where $x$ is an audio clip and $y$ is a text description.
-
-During contrastive training, matched audio-text pairs are brought closer in the
-embedding space while mismatched pairs are pushed apart. After pretraining,
-downstream classification becomes possible by expressing each class as text and
-retrieving the class whose text embedding is most similar to the audio
-embedding.
-
-If $z_a = f_a(x)$ and $z_t = f_t(y)$, then the similarity score used in the
-zero-shot stage is cosine similarity:
+where $X_a \in \mathbb{R}^{F \times T}$ is the processed audio ($F$ spectral
+components, $T$ time bins) and $X_t$ is the text input. For a batch of $N$
+audio-text pairs $\{X_a, X_t\}_i$, the encoders produce intermediate
+representations:
 
 \begin{equation}
-s(x, y) = \cos(z_a, z_t) = \frac{z_a \cdot z_t}{\lVert z_a \rVert \lVert z_t \rVert}.
+\hat{X}_a = f_a(X_a), \qquad \hat{X}_t = f_t(X_t),
 \end{equation}
 
-For a class set $C = \{c_1, \dots, c_K\}$, we build prompts
-$p(c_1), \dots, p(c_K)$ and predict:
+where $\hat{X}_a \in \mathbb{R}^{N \times V}$ and $\hat{X}_t \in \mathbb{R}^{N
+\times U}$. These are then brought into a joint multimodal space of dimension
+$d$ via learnable linear projections $L_a$ and $L_t$:
 
 \begin{equation}
-\hat{y} = \arg\max_k \; s\bigl(x, p(c_k)\bigr).
+E_a = L_a(\hat{X}_a), \qquad E_t = L_t(\hat{X}_t),
+\end{equation}
+
+where $E_a, E_t \in \mathbb{R}^{N \times d}$. The similarity matrix over the
+batch is computed as:
+
+\begin{equation}
+C = \tau \cdot \bigl(E_t \cdot E_a^{\top}\bigr),
+\end{equation}
+
+where $\tau$ is a learnable temperature parameter. $C \in \mathbb{R}^{N \times
+N}$ has $N$ correct pairs on the diagonal and $N^2 - N$ incorrect pairs
+off-diagonal. The model is trained with the symmetric cross-entropy loss:
+
+\begin{equation}
+\mathcal{L} = 0.5 \cdot \bigl(\ell_{\text{text}}(C) + \ell_{\text{audio}}(C)\bigr).
+\end{equation}
+
+For zero-shot classification, given a class set $\mathcal{C} = \{c_1, \dots,
+c_K\}$, we build prompts $p(c_1), \dots, p(c_K)$, compute their projected text
+embeddings $E_t^{(k)}$, and predict using cosine similarity:
+
+\begin{equation}
+s(X_a,\, p(c_k))
+  = \cos\!\bigl(E_a,\, E_t^{(k)}\bigr)
+  = \frac{E_a \cdot E_t^{(k)\top}}{\lVert E_a \rVert\,\lVert E_t^{(k)} \rVert},
+\end{equation}
+
+\begin{equation}
+\hat{y} = \arg\max_k \; s\bigl(X_a,\, p(c_k)\bigr).
 \end{equation}
 
 \subsection{Prompting and Prompt Ensembling}
@@ -172,35 +196,39 @@ as:
 and each phrasing yields a slightly different text embedding.
 
 This project therefore studies not only single-prompt inference but also prompt
-ensembling. Let $T=\{t_1,\dots,t_M\}$ be the prompt family and let
-$p_{k,m}=t_m(c_k)$ be the $m$-th prompt template for class $c_k$. Then:
+ensembling. Let $\mathcal{T}=\{t_1,\dots,t_M\}$ be the prompt family and let
+$p_{k,m}=t_m(c_k)$ be the $m$-th prompt template for class $c_k$. The audio
+and projected text embeddings for sample $i$ are:
 
 \begin{equation}
-z_i = f_a(x_i), \qquad q_{k,m} = f_t(p_{k,m}).
+E_a^{(i)} = L_a\!\bigl(f_a(X_a^{(i)})\bigr),
+\qquad
+Q_{k,m} = L_t\!\bigl(f_t(p_{k,m})\bigr).
 \end{equation}
 
 For a single prompt template, the class score is:
 
 \begin{equation}
-s_k^{(m)} = \cos(z_i, q_{k,m}).
+s_k^{(m)} = \cos\!\bigl(E_a^{(i)},\, Q_{k,m}\bigr).
 \end{equation}
 
-Uniform prompt ensembling averages prompt embeddings:
+Uniform prompt ensembling averages the projected text embeddings:
 
 \begin{equation}
-q_k^{\text{ens}} = \frac{1}{M} \sum_m q_{k,m}.
+Q_k^{\text{ens}} = \frac{1}{M} \sum_{m=1}^{M} Q_{k,m}.
 \end{equation}
 
 Weighted prompt ensembling uses:
 
 \begin{equation}
-q_k^{\text{ens}} = \sum_m w_m q_{k,m}, \qquad \sum_m w_m = 1.
+Q_k^{\text{ens}} = \sum_{m=1}^{M} w_m\, Q_{k,m},
+\qquad \sum_{m=1}^{M} w_m = 1.
 \end{equation}
 
 The final prediction is then:
 
 \begin{equation}
-\hat{y}_i = \arg\max_k \cos\bigl(z_i, q_k^{\text{ens}}\bigr).
+\hat{y}_i = \arg\max_k \;\cos\!\bigl(E_a^{(i)},\, Q_k^{\text{ens}}\bigr).
 \end{equation}
 
 We implemented both uniform and entropy-weighted ensembling. One of the most
