@@ -1,0 +1,82 @@
+{
+  "generated_at_utc": "2026-04-22T10:21:38+00:00",
+  "run_kind": "zeroshot_metrics",
+  "command": "metrics_analysis.py --datasets esc50 urbansound8k gtzan --device auto --audio-batch-size 64 --run-tag full-baseline --checkpoint-label laion-630k-full-baseline --notes 'official-style zero-shot reproduction run' --checkpoint /home/arfin/datasets/clap/checkpoints/630k-audioset-best.pt",
+  "repo_root": "/home/arfin/projects/clap-reimpl",
+  "git": {
+    "commit": "9ce5400c39da0d2ae3875eff4757e11b8a517e6f",
+    "short_commit": "9ce5400",
+    "branch": "main",
+    "remote_origin": "https://github.com/Shuvam-Chakraborty/CLAP.git",
+    "status_porcelain": "M .gitignore\n M LICENSE\n M MANIFEST.in\n M README.md\n M class_labels/GTZAN_class_labels.json\n D data/datasets/esc50/.gitkeep\n D data/datasets/fsdd/.gitkeep\n D data/datasets/gtzan/.gitkeep\n D data/datasets/urbansound8k/.gitkeep\n M metrics_analysis.py\n M outputs/figures/.gitkeep\n M outputs/metrics/.gitkeep\n M outputs/tables/.gitkeep\n M pyproject.toml\n M requirements.txt\n M scripts/__init__.py\n M scripts/analysis/__init__.py\n M scripts/analysis/run_ensemble_prompting.py\n M scripts/analysis/run_zeroshot_metrics.py\n?? Makefile\n?? docs/\n?? envs/\n?? outputs/logs/\n?? outputs/manifests/\n?? repro_utils.py\n?? scripts/repro/\n?? scripts/setup/"
+  },
+  "python": {
+    "python_executable": "/home/arfin/miniforge3/envs/clap-reimpl-env/bin/python",
+    "python_version": "3.10.20 | packaged by conda-forge | (main, Mar  5 2026, 16:42:22) [GCC 14.3.0]",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "uname": [
+      "Linux",
+      "Arfinzz",
+      "6.6.87.2-microsoft-standard-WSL2",
+      "#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025",
+      "x86_64",
+      "x86_64"
+    ],
+    "cwd": "/home/arfin/projects/clap-reimpl"
+  },
+  "torch": {
+    "available": true,
+    "version": "2.4.1+cu121",
+    "cuda_available": true,
+    "cuda_device_count": 1,
+    "cuda_devices": [
+      "NVIDIA GeForce GTX 1650 Ti"
+    ]
+  },
+  "laion_clap": {
+    "version": null,
+    "module_file": "/home/arfin/projects/clap-official/src/laion_clap/__init__.py"
+  },
+  "cli_args": {
+    "datasets": [
+      "esc50",
+      "urbansound8k",
+      "gtzan"
+    ],
+    "checkpoint": "/home/arfin/datasets/clap/checkpoints/630k-audioset-best.pt",
+    "amodel": null,
+    "enable_fusion": false,
+    "device": "auto",
+    "audio_batch_size": 64,
+    "n_bins": 10,
+    "force_recompute_audio": false,
+    "force_recompute_text": false,
+    "skip_missing": false,
+    "fsdd_split": "test",
+    "run_tag": "full-baseline",
+    "checkpoint_label": "laion-630k-full-baseline",
+    "notes": "official-style zero-shot reproduction run"
+  },
+  "requested_datasets": [
+    "esc50",
+    "urbansound8k",
+    "gtzan"
+  ],
+  "evaluated_datasets": [
+    "esc50",
+    "urbansound8k",
+    "gtzan"
+  ],
+  "skipped_datasets": [],
+  "output_files": {
+    "summary_csv": "/home/arfin/projects/clap-reimpl/outputs/tables/zeroshot_summary.csv",
+    "summary_md": "/home/arfin/projects/clap-reimpl/outputs/tables/zeroshot_summary.md",
+    "metrics_dir": "/home/arfin/projects/clap-reimpl/outputs/metrics",
+    "figures_dir": "/home/arfin/projects/clap-reimpl/outputs/figures"
+  },
+  "extra": {
+    "checkpoint_label": "laion-630k-full-baseline",
+    "notes": "official-style zero-shot reproduction run"
+  }
+}

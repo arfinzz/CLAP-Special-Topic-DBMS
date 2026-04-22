@@ -1,0 +1,124 @@
+{
+  "generated_at_utc": "2026-04-22T10:42:56+00:00",
+  "outputs_root": "/home/arfin/projects/clap-reimpl/outputs",
+  "datasets": [
+    "esc50",
+    "urbansound8k",
+    "gtzan",
+    "fsdd"
+  ],
+  "dataset_reports": [
+    {
+      "dataset": "esc50",
+      "metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/esc50.json",
+        "exists": true,
+        "size_bytes": 4716
+      },
+      "ensemble_metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/esc50_ensemble.json",
+        "exists": true,
+        "size_bytes": 1728
+      }
+    },
+    {
+      "dataset": "urbansound8k",
+      "metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/urbansound8k.json",
+        "exists": true,
+        "size_bytes": 5192
+      },
+      "ensemble_metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/urbansound8k_ensemble.json",
+        "exists": true,
+        "size_bytes": 1966
+      }
+    },
+    {
+      "dataset": "gtzan",
+      "metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/gtzan.json",
+        "exists": true,
+        "size_bytes": 4812
+      },
+      "ensemble_metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/gtzan_ensemble.json",
+        "exists": true,
+        "size_bytes": 1990
+      }
+    },
+    {
+      "dataset": "fsdd",
+      "metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/fsdd.json",
+        "exists": true,
+        "size_bytes": 5056
+      },
+      "ensemble_metrics": {
+        "path": "/home/arfin/projects/clap-reimpl/outputs/metrics/fsdd_ensemble.json",
+        "exists": true,
+        "size_bytes": 2031
+      }
+    }
+  ],
+  "summary_reports": {
+    "summary_csv": {
+      "path": "/home/arfin/projects/clap-reimpl/outputs/tables/zeroshot_summary.csv",
+      "exists": true,
+      "size_bytes": 1052
+    },
+    "summary_md": {
+      "path": "/home/arfin/projects/clap-reimpl/outputs/tables/zeroshot_summary.md",
+      "exists": true,
+      "size_bytes": 941
+    }
+  },
+  "manifest_reports": [
+    {
+      "path": "/home/arfin/projects/clap-reimpl/outputs/manifests/full_baseline.json",
+      "exists": true,
+      "size_bytes": 3400,
+      "ok": true,
+      "evaluated_datasets": [
+        "esc50",
+        "urbansound8k",
+        "gtzan"
+      ],
+      "git_commit": "9ce5400"
+    },
+    {
+      "path": "/home/arfin/projects/clap-reimpl/outputs/manifests/full_extensions.json",
+      "exists": true,
+      "size_bytes": 3553,
+      "ok": true,
+      "evaluated_datasets": [
+        "esc50",
+        "urbansound8k",
+        "gtzan",
+        "fsdd"
+      ],
+      "git_commit": "9ce5400"
+    },
+    {
+      "path": "/home/arfin/projects/clap-reimpl/outputs/manifests/full_extensions_ensemble.json",
+      "exists": true,
+      "size_bytes": 3596,
+      "ok": true,
+      "evaluated_datasets": [
+        "esc50",
+        "urbansound8k",
+        "gtzan",
+        "fsdd"
+      ],
+      "git_commit": "9ce5400"
+    }
+  ],
+  "checkpoint_reports": [
+    {
+      "path": "/home/arfin/datasets/clap/checkpoints/630k-audioset-best.pt",
+      "exists": true,
+      "size_bytes": 1863587645
+    }
+  ],
+  "all_ok": true
+}

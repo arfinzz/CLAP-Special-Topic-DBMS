@@ -1,0 +1,11 @@
+{
+  "generated_at_utc": "2026-04-22T07:07:20+00:00",
+  "checkpoint_name": "630k-audioset-best.pt",
+  "checkpoint_path": "/home/arfin/datasets/clap/checkpoints/630k-audioset-best.pt",
+  "checkpoint_url": "https://huggingface.co/lukewys/laion_clap/resolve/main/630k-audioset-best.pt",
+  "sha256": "8053c9775516af2f4902e1e8281e356cc1bf7a85e8b761908170767b77c3f037",
+  "size_bytes": 1863587645,
+  "exists": true,
+  "repo_root": "/home/arfin/projects/clap-reimpl",
+  "hostname": "Arfinzz"
+}

@@ -27,6 +27,8 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 if str(REPO_ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
@@ -44,8 +46,9 @@ from analysis.run_zeroshot_metrics import (
     load_or_compute_text_embeddings,
     resolve_datasets,
     resolve_device,
-    write_json,
+    slugify,
 )
+from repro_utils import build_run_manifest, write_json
 
 import matplotlib
 matplotlib.use("Agg")
@@ -264,6 +267,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--force-recompute-text", action="store_true")
     p.add_argument("--skip-missing", action="store_true")
     p.add_argument("--fsdd-split", choices=("test", "train", "all"), default="all")
+    p.add_argument("--run-tag", type=str, default="ensemble-prompting")
+    p.add_argument("--checkpoint-label", type=str, default="auto-default")
+    p.add_argument("--notes", type=str, default="")
     return p.parse_args()
 
 
@@ -288,6 +294,8 @@ def main() -> None:
 
     model = build_model(args, device)
     summary_rows: list[dict[str, Any]] = []
+    evaluated_datasets: list[str] = []
+    skipped_datasets: list[dict[str, str]] = []
 
     for dataset_key in requested:
         print("=" * 72)
@@ -299,6 +307,7 @@ def main() -> None:
         except FileNotFoundError as exc:
             if args.skip_missing:
                 print(f"Skipping {dataset_key}: {exc}\n")
+                skipped_datasets.append({"dataset": dataset_key, "reason": str(exc)})
                 continue
             raise
 
@@ -401,6 +410,7 @@ def main() -> None:
         metrics_path = OUTPUTS_ROOT / "metrics" / f"{dataset_key}_ensemble.json"
         write_json(metrics_path, comparison)
         print(f"  Saved JSON : {metrics_path}")
+        evaluated_datasets.append(dataset_key)
 
         summary_rows.append({
             "dataset": bundle.display_name,
@@ -465,8 +475,30 @@ def main() -> None:
         )
     (out_dir / "ensemble_summary.md").write_text("\n".join(md_lines) + "\n")
 
+    manifest_path = OUTPUTS_ROOT / "manifests" / f"{slugify(args.run_tag)}.json"
+    manifest = build_run_manifest(
+        repo_root=REPO_ROOT,
+        run_kind="ensemble_prompting",
+        cli_args=vars(args),
+        requested_datasets=requested,
+        evaluated_datasets=evaluated_datasets,
+        skipped_datasets=skipped_datasets,
+        output_files={
+            "summary_csv": str(out_dir / "ensemble_summary.csv"),
+            "summary_md": str(out_dir / "ensemble_summary.md"),
+            "metrics_dir": str(OUTPUTS_ROOT / "metrics"),
+            "figures_dir": str(OUTPUTS_ROOT / "figures"),
+        },
+        extra={
+            "checkpoint_label": args.checkpoint_label,
+            "notes": args.notes,
+        },
+    )
+    write_json(manifest_path, manifest)
+
     print(f"\nSaved ensemble summary: {out_dir / 'ensemble_summary.csv'}")
     print(f"Saved ensemble summary: {out_dir / 'ensemble_summary.md'}")
+    print(f"Saved run manifest: {manifest_path}")
     print("=" * 72)
     print("Done.")
 

@@ -1,0 +1,9 @@
+{
+  "generated_at_utc": "2026-04-22T10:11:23+00:00",
+  "source_url": "https://ibm.ent.box.com/index.php?rm=box_download_shared_file&shared_name=gvkgmb4n0h6rbeccdwtwa0ujjjfmouof&file_id=f_961929491012",
+  "archive_path": "/home/arfin/datasets/clap/archives/gtzan_raw_box.zip",
+  "prepared_root": "/home/arfin/datasets/clap/gtzan/genres",
+  "converted_from": ".au",
+  "removed_corrupted_file": "jazz/jazz.00054.wav",
+  "final_wav_count": 999
+}

@@ -10,9 +10,12 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import laion_clap
 import matplotlib
+from repro_utils import build_run_manifest, write_json
 
 matplotlib.use("Agg")
 
@@ -22,6 +25,10 @@ import pandas as pd
 import seaborn as sns
 import torch
 from sklearn.metrics import balanced_accuracy_score, confusion_matrix, f1_score
+
+if not hasattr(np.random, "integers"):
+    # Older NumPy exposes randint on the module RNG but not integers.
+    np.random.integers = np.random.randint  # type: ignore[attr-defined]
 
 
 CLASS_LABELS_DIR = REPO_ROOT / "class_labels"
@@ -148,6 +155,24 @@ def parse_args() -> argparse.Namespace:
         default="test",
         help="Subset of FSDD to evaluate. The official split uses indices 0-4 for test.",
     )
+    parser.add_argument(
+        "--run-tag",
+        type=str,
+        default="zeroshot-metrics",
+        help="Short label written into the run manifest.",
+    )
+    parser.add_argument(
+        "--checkpoint-label",
+        type=str,
+        default="auto-default",
+        help="Human-readable checkpoint label for reports and manifests.",
+    )
+    parser.add_argument(
+        "--notes",
+        type=str,
+        default="",
+        help="Optional free-form notes stored in the run manifest.",
+    )
     return parser.parse_args()
 
 
@@ -170,6 +195,8 @@ def main() -> None:
 
     model = build_model(args, device)
     summary_rows: list[dict[str, Any]] = []
+    evaluated_datasets: list[str] = []
+    skipped_datasets: list[dict[str, str]] = []
 
     for dataset_key in requested_datasets:
         print("=" * 72)
@@ -181,6 +208,7 @@ def main() -> None:
             if args.skip_missing:
                 print(f"Skipping {dataset_key}: {exc}")
                 print()
+                skipped_datasets.append({"dataset": dataset_key, "reason": str(exc)})
                 continue
             raise
 
@@ -278,6 +306,7 @@ def main() -> None:
             "root_dir": str(bundle.root_dir),
             "num_samples": int(len(bundle.audio_files)),
             "num_classes": int(len(bundle.class_names)),
+            "checkpoint_label": args.checkpoint_label,
             "default_prompt": default_prompt,
             "default_prompt_metrics": default_results["metrics"],
             "prompt_sensitivity": prompt_summary,
@@ -289,6 +318,7 @@ def main() -> None:
             "output_files": {key: str(path) for key, path in figure_paths.items()},
         }
         write_json(metrics_path, report)
+        evaluated_datasets.append(dataset_key)
 
         summary_rows.append(
             {
@@ -325,6 +355,29 @@ def main() -> None:
         raise RuntimeError("No dataset was evaluated. Check dataset availability or your CLI flags.")
 
     write_summary_tables(summary_rows)
+    manifest_path = OUTPUTS_ROOT / "manifests" / f"{slugify(args.run_tag)}.json"
+    summary_csv = OUTPUTS_ROOT / "tables" / "zeroshot_summary.csv"
+    summary_md = OUTPUTS_ROOT / "tables" / "zeroshot_summary.md"
+    manifest = build_run_manifest(
+        repo_root=REPO_ROOT,
+        run_kind="zeroshot_metrics",
+        cli_args=vars(args),
+        requested_datasets=requested_datasets,
+        evaluated_datasets=evaluated_datasets,
+        skipped_datasets=skipped_datasets,
+        output_files={
+            "summary_csv": str(summary_csv),
+            "summary_md": str(summary_md),
+            "metrics_dir": str(OUTPUTS_ROOT / "metrics"),
+            "figures_dir": str(OUTPUTS_ROOT / "figures"),
+        },
+        extra={
+            "checkpoint_label": args.checkpoint_label,
+            "notes": args.notes,
+        },
+    )
+    write_json(manifest_path, manifest)
+    print(f"Saved run manifest: {manifest_path}")
     print("=" * 72)
     print("Completed. Summary tables written to outputs/tables/")
     print("=" * 72)
@@ -952,14 +1005,6 @@ def save_prompt_sensitivity_figure(
     plt.tight_layout()
     plt.savefig(output_path, dpi=150)
     plt.close(fig)
-
-
-def write_json(path: Path, payload: dict[str, Any]) -> None:
-    ensure_dir(path.parent)
-    with path.open("w", encoding="utf-8") as handle:
-        json.dump(payload, handle, indent=2)
-
-
 def write_summary_tables(summary_rows: list[dict[str, Any]]) -> None:
     output_dir = ensure_dir(OUTPUTS_ROOT / "tables")
     dataframe = pd.DataFrame(summary_rows)

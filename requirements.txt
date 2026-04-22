@@ -1,35 +1,21 @@
-# ── Core deep learning ────────────────────────────────────────────────────────
-# Install PyTorch separately first (see README):
-#   pip install torch==2.1.0+cu121 torchaudio==2.1.0+cu121 torchvision==0.16.0+cu121 \
-#       --index-url https://download.pytorch.org/whl/cu121
-torch==2.1.0
-torchaudio==2.1.0
-torchvision==0.16.0
-torchlibrosa==0.1.0
+# Install PyTorch and the official LAION CLAP source separately.
+# Use scripts/setup/setup_reimpl_env.sh for the authoritative environment path.
 
-# ── Audio processing ──────────────────────────────────────────────────────────
+torchlibrosa==0.1.0
 librosa==0.11.0
 soundfile==0.13.1
 soxr==1.0.0
-
-# ── NLP / tokenisation ────────────────────────────────────────────────────────
 transformers==4.30.0
 tokenizers==0.13.3
 ftfy==6.3.1
 regex==2026.4.4
-
-# ── Data / numerics ───────────────────────────────────────────────────────────
 numpy==1.26.4
 scipy==1.15.3
 pandas==2.3.3
 h5py==3.16.0
 scikit-learn==1.7.2
-
-# ── Visualisation ─────────────────────────────────────────────────────────────
 matplotlib==3.10.8
 seaborn==0.13.2
-
-# ── Training utilities ────────────────────────────────────────────────────────
 wandb==0.26.0
 tqdm==4.67.3
 progressbar==2.5
@@ -37,6 +23,3 @@ webdataset==1.0.2
 braceexpand==0.1.7
 wget==3.2
 huggingface_hub==0.36.2
-
-# ── CLAP pip package ──────────────────────────────────────────────────────────
-laion_clap==1.1.7

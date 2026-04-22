@@ -1,57 +1,42 @@
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
 [project]
-name = "laion_clap"
-version = "1.1.6"
-authors = [
-  { name="Ke Chen", email="knutchen@ucsd.edu" },
-  { name="Yusong Wu" },
-  { name="Tianyu Zhang" },
-  { name="Yuchen Hui" }
-]
-maintainers = [
-  { name="Ke Chen", email="knutchen@ucsd.edu" },
-  { name="Yusong Wu" },
-  { name="Tianyu Zhang" },
-  { name="Yuchen Hui" }
-]
-description = "Contrastive Language-Audio Pretraining Model from LAION"
-license = {file = "LICENSE"}
+name = "clap-reimpl-analysis"
+version = "0.1.0"
+description = "Reproduction and extension scripts for zero-shot CLAP evaluation."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
 dependencies = [
-  "numpy >= 1.23.5, < 2.0.0",
-  "soundfile",
-  "librosa",
-  "torchlibrosa",
-  "ftfy",
-  "braceexpand",
-  "webdataset",
-  "wget",
-  "wandb",
-  "llvmlite",
-  "scipy>=1.15.0",
-  "scikit-learn",
-  "pandas>=2.2.0",
-  "h5py",
-  "tqdm",
-  "regex",
-  "transformers>=4.51.3",
-  "progressbar",
-  "torch>=2.4.0",
-  "torchaudio>=2.4.0",
-  "torchvision>=0.19.0"
-]
-classifiers = [
-    'Development Status :: 3 - Alpha',
-    'Intended Audience :: Developers',
-    'Intended Audience :: Science/Research',
-    'License :: OSI Approved :: Apache Software License',
-    'Topic :: Scientific/Engineering :: Artificial Intelligence',
+  "braceexpand==0.1.7",
+  "ftfy==6.3.1",
+  "h5py==3.16.0",
+  "huggingface_hub==0.36.2",
+  "librosa==0.11.0",
+  "matplotlib==3.10.8",
+  "numpy==1.26.4",
+  "pandas==2.3.3",
+  "progressbar==2.5",
+  "regex==2026.4.4",
+  "scikit-learn==1.7.2",
+  "scipy==1.15.3",
+  "seaborn==0.13.2",
+  "soundfile==0.13.1",
+  "soxr==1.0.0",
+  "tokenizers==0.13.3",
+  "torchlibrosa==0.1.0",
+  "tqdm==4.67.3",
+  "transformers==4.30.0",
+  "wandb==0.26.0",
+  "webdataset==1.0.2",
+  "wget==3.2",
 ]
 
+[tool.setuptools]
+py-modules = ["metrics_analysis", "repro_utils"]
 
 [project.urls]
-"Homepage" = "https://github.com/LAION-AI/CLAP"
-"Bug Tracker" = "https://github.com/LAION-AI/CLAP/issues"
+Homepage = "https://github.com/Shuvam-Chakraborty/CLAP"
+Repository = "https://github.com/Shuvam-Chakraborty/CLAP"

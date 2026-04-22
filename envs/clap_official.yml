@@ -1,0 +1,24 @@
+name: clap-official-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - ffmpeg
+  - libsndfile
+  - pip:
+      - numpy<2
+      - scipy
+      - pandas
+      - scikit-learn
+      - matplotlib
+      - seaborn
+      - tqdm
+      - wget
+      - huggingface_hub
+      - soundfile
+      - librosa
+# Authoritative install path:
+#   scripts/setup/setup_official_env.sh
+# The setup script installs the official LAION CLAP repo from source plus
+# the paper-faithful Torch stack used for the baseline track.

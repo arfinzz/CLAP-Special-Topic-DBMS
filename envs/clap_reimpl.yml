@@ -1,0 +1,14 @@
+name: clap-reimpl-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - ffmpeg
+  - libsndfile
+  - pip:
+      - -r requirements.txt
+# Authoritative install path:
+#   scripts/setup/setup_reimpl_env.sh
+# The setup script installs the helper dependencies from this repo and then
+# installs the official LAION CLAP code from a sibling checkout.

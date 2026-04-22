@@ -83,6 +83,10 @@ outputs/**
 !outputs/embeddings/.gitkeep
 !outputs/figures/
 !outputs/figures/.gitkeep
+!outputs/logs/
+!outputs/logs/.gitkeep
+!outputs/manifests/
+!outputs/manifests/.gitkeep
 !outputs/metrics/
 !outputs/metrics/.gitkeep
 !outputs/tables/
