@@ -30,8 +30,8 @@ Use the verified branches and commit:
 git clone https://github.com/LAION-AI/CLAP.git ~/projects/clap-official
 git -C ~/projects/clap-official checkout 1fd4c37
 
-git clone --branch arfin --single-branch \
-  https://github.com/Shuvam-Chakraborty/CLAP.git \
+git clone --branch main --single-branch \
+  https://github.com/arfinzz/CLAP-Special-Topic-DBMS.git \
   ~/projects/clap-reimpl
 ```
 

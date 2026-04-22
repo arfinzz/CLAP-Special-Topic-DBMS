@@ -1,5 +1,9 @@
 # CLAP Reimplementation and Extended Evaluation Report
 
+## COL868 Special Topics in DBMS
+
+**Project submitted by:** Shuvam Chakraborty, Arfin Khan, Bhuvnesh Kumar
+
 ## 1. Executive Summary
 
 This project rebuilt the zero-shot CLAP evaluation pipeline across the paper

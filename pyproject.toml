@@ -38,5 +38,5 @@ dependencies = [
 py-modules = ["metrics_analysis", "repro_utils"]
 
 [project.urls]
-Homepage = "https://github.com/Shuvam-Chakraborty/CLAP"
-Repository = "https://github.com/Shuvam-Chakraborty/CLAP"
+Homepage = "https://github.com/arfinzz/CLAP-Special-Topic-DBMS"
+Repository = "https://github.com/arfinzz/CLAP-Special-Topic-DBMS"

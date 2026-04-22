@@ -21,14 +21,14 @@ The final verified workflow uses:
 - `torch 2.4.1+cu121`
 - checkpoint `630k-audioset-best.pt`
 - official LAION repo commit `1fd4c37`
-- this repo branch `arfin`
+- this repo branch `main`
 
 ## Repos Used
 
 You should keep two repos in WSL:
 
 - official model repo: `https://github.com/LAION-AI/CLAP.git`
-- experiment repo: `https://github.com/Shuvam-Chakraborty/CLAP.git` on branch `arfin`
+- experiment repo: `https://github.com/arfinzz/CLAP-Special-Topic-DBMS.git` on branch `main`
 
 The official repo provides `laion_clap`.
 This repo provides the benchmark pipeline and reportable experiment outputs.
@@ -92,8 +92,8 @@ mkdir -p "$HOME/datasets/clap"/{archives,checkpoints,esc50,gtzan,urbansound8k,fs
 git clone https://github.com/LAION-AI/CLAP.git "$HOME/projects/clap-official"
 git -C "$HOME/projects/clap-official" checkout 1fd4c37
 
-git clone --branch arfin --single-branch \
-  https://github.com/Shuvam-Chakraborty/CLAP.git \
+git clone --branch main --single-branch \
+  https://github.com/arfinzz/CLAP-Special-Topic-DBMS.git \
   "$HOME/projects/clap-reimpl"
 cd "$HOME/projects/clap-reimpl"
 ```
@@ -103,15 +103,13 @@ Verify the checked-out commits:
 ```bash
 git -C "$HOME/projects/clap-official" rev-parse --short HEAD
 git -C "$HOME/projects/clap-reimpl" rev-parse --abbrev-ref HEAD
-git -C "$HOME/projects/clap-reimpl" rev-parse --short HEAD
 ```
 
 Expected:
 
 ```bash
 1fd4c37
-arfin
-27cbdb6
+main
 ```
 
 ### 5. Install Miniforge
