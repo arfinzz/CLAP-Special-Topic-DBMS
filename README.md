@@ -20,13 +20,15 @@ The final verified workflow uses:
 - `Python 3.10`
 - `torch 2.4.1+cu121`
 - checkpoint `630k-audioset-best.pt`
+- official LAION repo commit `1fd4c37`
+- this repo branch `arfin`
 
 ## Repos Used
 
 You should keep two repos in WSL:
 
 - official model repo: `https://github.com/LAION-AI/CLAP.git`
-- experiment repo: `https://github.com/Shuvam-Chakraborty/CLAP.git`
+- experiment repo: `https://github.com/Shuvam-Chakraborty/CLAP.git` on branch `arfin`
 
 The official repo provides `laion_clap`.
 This repo provides the benchmark pipeline and reportable experiment outputs.
@@ -88,8 +90,28 @@ mkdir -p "$HOME/datasets/clap"/{archives,checkpoints,esc50,gtzan,urbansound8k,fs
 
 ```bash
 git clone https://github.com/LAION-AI/CLAP.git "$HOME/projects/clap-official"
-git clone https://github.com/Shuvam-Chakraborty/CLAP.git "$HOME/projects/clap-reimpl"
+git -C "$HOME/projects/clap-official" checkout 1fd4c37
+
+git clone --branch arfin --single-branch \
+  https://github.com/Shuvam-Chakraborty/CLAP.git \
+  "$HOME/projects/clap-reimpl"
 cd "$HOME/projects/clap-reimpl"
+```
+
+Verify the checked-out commits:
+
+```bash
+git -C "$HOME/projects/clap-official" rev-parse --short HEAD
+git -C "$HOME/projects/clap-reimpl" rev-parse --abbrev-ref HEAD
+git -C "$HOME/projects/clap-reimpl" rev-parse --short HEAD
+```
+
+Expected:
+
+```bash
+1fd4c37
+arfin
+27cbdb6
 ```
 
 ### 5. Install Miniforge
@@ -250,7 +272,8 @@ conda run -n clap-reimpl-env python scripts/repro/verify_assets.py \
 
 ### 14. Run the full baseline benchmark
 
-This is the paper-style dataset suite:
+This uses the original paper dataset suite with the improved `630k` LAION
+checkpoint:
 
 ```bash
 cd "$HOME/projects/clap-reimpl"

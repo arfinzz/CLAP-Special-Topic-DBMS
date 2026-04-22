@@ -24,6 +24,17 @@ scripts, richer metrics, and extension experiments.
 Clone both repositories inside the WSL filesystem, not under `/mnt/c`, to
 avoid Windows metadata and extraction issues.
 
+Use the verified branches and commit:
+
+```bash
+git clone https://github.com/LAION-AI/CLAP.git ~/projects/clap-official
+git -C ~/projects/clap-official checkout 1fd4c37
+
+git clone --branch arfin --single-branch \
+  https://github.com/Shuvam-Chakraborty/CLAP.git \
+  ~/projects/clap-reimpl
+```
+
 ## 1. Prepare the machine
 
 ```bash
@@ -116,7 +127,7 @@ This writes the checkpoint file and a checkpoint manifest under
 
 ## 7. Run the two experiment tracks
 
-Paper-faithful baseline:
+Original-dataset baseline with the improved `630k` checkpoint:
 
 ```bash
 bash scripts/repro/run_reproduction.sh
@@ -145,9 +156,9 @@ bash scripts/repro/run_extensions.sh
 
 ```bash
 python scripts/repro/check_acceptance.py \
-  --datasets esc50 urbansound8k fsdd \
+  --datasets esc50 urbansound8k gtzan fsdd \
   --expect-ensemble \
-  --manifests extensions.json extensions-ensemble.json \
+  --manifests full_baseline.json full_extensions.json full_extensions_ensemble.json \
   --checkpoints-root ~/datasets/clap/checkpoints \
   --require-checkpoints 630k-audioset-best.pt
 ```

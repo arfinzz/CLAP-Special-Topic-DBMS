@@ -44,12 +44,11 @@ Success criteria:
 - `FSDD` reports `3000/3000`
 - `GTZAN` reports `999/999` after removing `jazz.00054.wav`
 
-## Phase 7: supported-dataset checkpoint readiness
+## Phase 7: checkpoint readiness
 
 Target:
 
-- make the supported datasets runnable with a pinned checkpoint
-- treat missing `GTZAN` as an external blocker, not a repo bug
+- make the full dataset suite runnable with a pinned checkpoint
 
 Command:
 
@@ -72,7 +71,7 @@ Command:
 
 ```bash
 python scripts/repro/verify_assets.py \
-  --datasets esc50 urbansound8k fsdd \
+  --datasets esc50 urbansound8k gtzan fsdd \
   --datasets-root ~/projects/clap-reimpl/data/datasets \
   --checkpoints-root ~/datasets/clap/checkpoints \
   --require-checkpoints 630k-audioset-best.pt \
@@ -83,16 +82,17 @@ python scripts/repro/verify_assets.py \
 
 Target:
 
-- launch the paper-style path with explicit checkpoint metadata when available
-- allow `SKIP_MISSING=1` for partial runs while `GTZAN` is unavailable
+- launch the original-dataset benchmark path with explicit checkpoint metadata
 
 Command:
 
 ```bash
-SKIP_MISSING=1 \
-DATASETS="esc50 urbansound8k" \
-VERIFY_DATASETS="esc50 urbansound8k" \
+DATASETS="esc50 urbansound8k gtzan" \
+VERIFY_DATASETS="esc50 urbansound8k gtzan" \
 CHECKPOINT_NAME=630k-audioset-best.pt \
+CHECKPOINT_LABEL=laion-630k-full-baseline \
+RUN_TAG=full-baseline \
+VERIFY_HASHES=1 \
 bash scripts/repro/run_reproduction.sh
 ```
 
@@ -105,10 +105,12 @@ Target:
 Command:
 
 ```bash
-SKIP_MISSING=1 \
-DATASETS="esc50 urbansound8k fsdd" \
-VERIFY_DATASETS="esc50 urbansound8k fsdd" \
+DATASETS="esc50 urbansound8k gtzan fsdd" \
+VERIFY_DATASETS="esc50 urbansound8k gtzan fsdd" \
 CHECKPOINT_NAME=630k-audioset-best.pt \
+CHECKPOINT_LABEL=laion-630k-full-extensions \
+RUN_TAG=full-extensions \
+VERIFY_HASHES=1 \
 bash scripts/repro/run_extensions.sh
 ```
 
@@ -122,9 +124,9 @@ Command:
 
 ```bash
 python scripts/repro/check_acceptance.py \
-  --datasets esc50 urbansound8k fsdd \
+  --datasets esc50 urbansound8k gtzan fsdd \
   --expect-ensemble \
-  --manifests extensions.json extensions-ensemble.json \
+  --manifests full_baseline.json full_extensions.json full_extensions_ensemble.json \
   --checkpoints-root ~/datasets/clap/checkpoints \
   --require-checkpoints 630k-audioset-best.pt
 ```
@@ -135,8 +137,7 @@ Target:
 
 - capture exact blockers separately from completed work
 
-Current expected blocker:
+Current status:
 
-- `GTZAN` may remain unavailable because the historical public download link is
-  no longer dependable; this should be documented explicitly in the paper or
-  project report if you proceed without it.
+- `GTZAN` has been acquired and normalized to `999` `.wav` files
+- the full four-dataset run is available through the exact commands above
