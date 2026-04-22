@@ -774,19 +774,7 @@ These are the strongest claims supported by the final run.
 - The extension conclusions are strong empirically, but they are still bounded
   by the prompt families and checkpoint used in this study.
 
-## 18. Team Contributions and Work Distribution
-
-| Member | Approx. Share | Primary Contribution Areas |
-|---|---:|---|
-| Shuvam Chakraborty | 40% | Core evaluation pipeline integration, zero-shot benchmarking workflow, metric/result consolidation, and substantial report drafting |
-| Arfin Khan | 40% | Environment stabilization in WSL2, dataset preparation and verification, prompt ensembling analysis, figure generation, and reproducibility artifacts |
-| Bhuvnesh Kumar | 20% | Dataset/result validation support, asset organization, selective experiment assistance, and report polishing/review |
-
-All three members contributed to the final project discussion and submission
-preparation. The split above reflects the major implementation and experiment
-load while still acknowledging the shared submission effort.
-
-## 19. Final Conclusion
+## 18. Final Conclusion
 
 This project delivered:
 
