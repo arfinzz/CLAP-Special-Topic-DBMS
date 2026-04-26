@@ -63,8 +63,7 @@ Reimplementation environment:
 bash scripts/setup/setup_reimpl_env.sh clap-reimpl-env ~/projects/clap-official
 ```
 
-The YAML files in [envs](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/envs) are
-lightweight manifests; the shell scripts above remain the source of truth.
+The YAML files in envs are lightweight manifests; the shell scripts above remain the source of truth.
 
 ## Complete phases 0-4 in one command
 
@@ -75,8 +74,7 @@ cd ~/projects/clap-reimpl
 bash scripts/setup/bootstrap_phase_0_to_4.sh
 ```
 
-Phase definitions and success criteria are tracked in
-[docs/phase_0_to_4_status.md](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/docs/phase_0_to_4_status.md).
+Phase definitions and success criteria are tracked in: docs/phase_0_to_4_status.md.
 
 ## 3. Download datasets
 
