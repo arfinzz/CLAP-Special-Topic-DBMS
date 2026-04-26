@@ -264,8 +264,7 @@ conda run -n clap-reimpl-env python scripts/repro/verify_assets.py \
 
 ### 14. Run the full baseline benchmark
 
-This uses the original paper dataset suite with the improved `630k` LAION
-checkpoint:
+This uses the original paper dataset suite with the improved `630k` LAION checkpoint. This will take approximately 5-7 minutes. Warnings from PyTorch, Transformers, or HuggingFace may appear during execution but are expected and do not affect results or reproducibility.
 
 ```bash
 cd "$HOME/projects/clap-reimpl"
@@ -282,7 +281,7 @@ bash scripts/repro/run_reproduction.sh
 
 ### 15. Run the full extension benchmark
 
-This is the improved setup with the extra dataset and prompt-ensemble analysis:
+This is the improved setup with the extra dataset and prompt-ensemble analysis. This will take approximately 5-7 minutes. Warnings from PyTorch, Transformers, or HuggingFace may appear during execution but are expected and do not affect results.
 
 ```bash
 cd "$HOME/projects/clap-reimpl"
@@ -310,11 +309,7 @@ conda run -n clap-reimpl-env python scripts/repro/check_acceptance.py \
   --output "$HOME/projects/clap-reimpl/outputs/manifests/acceptance_check_full.json"
 ```
 
-If everything is correct, the final acceptance report will contain:
-
-```json
-"all_ok": true
-```
+If everything is correct, the final acceptance report will contain all OK.
 
 ## Expected Final Outputs
 
@@ -337,13 +332,11 @@ After the full run, you should have:
   `630k-audioset-best.pt` checkpoint, so the final benchmark should be described
   as an improved-checkpoint reproduction rather than an exact same-checkpoint
   replication of the original paper.
-- GTZAN preparation is documented in
-  [reports/assets/manifests/gtzan_preparation.json](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/reports/assets/manifests/gtzan_preparation.json).
 
 ## Additional Docs
 
-- WSL setup guide: [docs/wsl_reproduction_setup.md](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/docs/wsl_reproduction_setup.md)
-- phase 0-4 status: [docs/phase_0_to_4_status.md](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/docs/phase_0_to_4_status.md)
-- phase 5-12 status: [docs/phase_5_to_12_status.md](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/docs/phase_5_to_12_status.md)
-- workflow notes: [docs/reproduction_workflow.md](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/docs/reproduction_workflow.md)
-- final report: [reports/CLAP_Final_Report.md](/C:/Users/arfin/Desktop/sdbms-proj/CLAP/reports/CLAP_Final_Report.md)
+- WSL setup guide: docs/wsl_reproduction_setup.md
+- phase 0-4 status: docs/phase_0_to_4_status.md
+- phase 5-12 status: docs/phase_5_to_12_status.md
+- workflow notes: docs/reproduction_workflow.md
+- final report: reports/REPORT-TEAM-6.pdf
