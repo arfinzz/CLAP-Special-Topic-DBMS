@@ -52,9 +52,9 @@ This repo provides the benchmark pipeline and reportable experiment outputs.
 
 ## Exact End-to-End Run Guide
 
-This is the exact setup path for the final verified experiment run.
+This is the exact setup path for the final verified experiment run. Run all commands from your root directory.
 
-### 1. Create or open the WSL distro
+### 1. Create or open the WSL distro (If WSL or Ubuntu is there then no need to perform this step)
 
 From Windows PowerShell:
 
@@ -139,12 +139,6 @@ Optional isolated official env:
 
 ```bash
 bash scripts/setup/setup_official_env.sh clap-official-env "$HOME/projects/clap-official"
-```
-
-Quick verification:
-
-```bash
-conda run -n clap-reimpl-env python -c "import torch, numpy, transformers, laion_clap; print(torch.__version__); print(torch.cuda.is_available()); print(numpy.__version__); print(transformers.__version__); print(laion_clap.__file__)"
 ```
 
 ### 7. Download ESC-50
