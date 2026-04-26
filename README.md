@@ -335,8 +335,8 @@ After the full run, you should have:
 
 ## Additional Docs
 
-- WSL setup guide: docs/wsl_reproduction_setup.md
-- phase 0-4 status: docs/phase_0_to_4_status.md
-- phase 5-12 status: docs/phase_5_to_12_status.md
-- workflow notes: docs/reproduction_workflow.md
-- final report: reports/REPORT-TEAM-6.pdf
+- **WSL setup guide:** docs/wsl_reproduction_setup.md
+- **phase 0-4 status:** docs/phase_0_to_4_status.md
+- **phase 5-12 status:** docs/phase_5_to_12_status.md
+- **workflow notes:** docs/reproduction_workflow.md
+- **final report:** reports/REPORT-TEAM-6.pdf
